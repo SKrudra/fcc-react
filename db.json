@@ -16,13 +16,19 @@
       "id": 3,
       "text": "Project Design Review",
       "day": "Feb 27 at 11:00am",
-      "reminder": false
+      "reminder": true
     },
     {
       "text": "Go to Office",
       "day": "Feb 27 at 9am",
       "reminder": true,
       "id": 4
+    },
+    {
+      "text": "Go to Market",
+      "day": "Feb 27 at 7pm",
+      "reminder": true,
+      "id": 5
     }
   ]
 }
