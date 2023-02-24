@@ -2,8 +2,10 @@ import {useState} from 'react';
 
 import Header from './componenets/Header';
 import Tasks from './componenets/Tasks';
+import AddTask from './componenets/AddTask';
 
 function App() {
+  const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -25,17 +27,34 @@ function App() {
     },
   ]);
 
-  // Delete Task
+  // Add Task
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 10000) + 1;
+    const newTask = {id, ...task};
+    setTasks([...tasks, newTask]);
+  };
 
+  // Delete Task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
     console.log('deleted', id);
   };
 
+  // Toggle reminder
+  const toggerReminder = (id) => {
+    console.log('toggle', id);
+    setTasks(tasks.map((task) => (task.id === id ? {...task, reminder: !task.reminder} : task)));
+  };
+
   return (
     <div className="container">
-      <Header />
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : 'You are all taken care off'}
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+      {showAddTask && <AddTask onAdd={addTask} />}
+      {tasks.length > 0 ? (
+        <Tasks tasks={tasks} onAdd={addTask} onDelete={deleteTask} onToggle={toggerReminder} />
+      ) : (
+        'You are all taken care off'
+      )}
     </div>
   );
 }
